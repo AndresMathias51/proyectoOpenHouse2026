@@ -92,8 +92,8 @@ class Operator_reader:
         else:
             print("Dispositivo no reconocido")
 
-    def read_pos(self, dic_device_objeto):
-        with open(f"{self.ruta}/data/pos.csv", mode='r', newline='', encoding='utf-8') as pos:
+    def read_pos(self, dic_device_objeto, ruta):
+        with open(f"{ruta}", mode='r', newline='', encoding='utf-8') as pos:
             reader = csv.reader(pos)
             
             for num_line, line in enumerate(reader, start=1):

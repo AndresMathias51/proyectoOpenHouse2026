@@ -84,4 +84,13 @@ QTextEdit#Console {
   color: #22c55e;
 }
 QLabel#Hint { color: rgba(148,163,184,0.9); font-style: italic; }
+
+# UI/theme.py (agrega dentro del string QSS)
+QLineEdit#PathInput {
+  background: rgba(2, 6, 23, 0.65);
+  border: 1px solid rgba(148,163,184,0.18);
+  border-radius: 12px;
+  padding: 10px 12px;
+  color: #e2e8f0;
+}
 """

@@ -9,6 +9,7 @@ from UI.pages.conexiones import ConexionesPage
 from UI.pages.ips import IpsPage
 from UI.pages.protocolos import ProtocolosPage
 from UI.pages.ver_red import VerRedPage
+from UI.pages.posiciones import PosicionesPage
 
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
@@ -34,6 +35,7 @@ class MainWindow(QMainWindow):
         self.stack.addWidget(InicioPage(self.console))
         self.stack.addWidget(ConexionesPage(self.console))
         self.stack.addWidget(IpsPage(self.console))
+        self.stack.addWidget(PosicionesPage(self.console))
         self.stack.addWidget(ProtocolosPage(self.console))
         self.stack.addWidget(VerRedPage(self.console))
 

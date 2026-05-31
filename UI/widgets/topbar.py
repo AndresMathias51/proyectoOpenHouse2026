@@ -18,7 +18,7 @@ class TopBar(QFrame):
         lay.addSpacing(16)
 
         self.buttons: list[QPushButton] = []
-        names = ["Inicio", "Conexiones", "Asignar IPs", "Protocolos", "Ver Red"]
+        names = ["Inicio", "Conexiones", "Asignar IPs", "Posiciones", "Protocolos", "Ver Red"]
 
         for i, name in enumerate(names):
             b = QPushButton(name)

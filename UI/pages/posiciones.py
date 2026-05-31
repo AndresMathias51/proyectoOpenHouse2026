@@ -2,42 +2,42 @@ from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QWidget, QVBoxLayout, QLabel, QPushButton, QHBoxLayout, QLineEdit, QFileDialog
 )
+from app import General_Core
 
 from UI.widgets.card import make_card
 
-class IpsPage(QWidget):
+class PosicionesPage(QWidget):
     def __init__(self, console, parent=None):
         super().__init__(parent)
         self.console = console
-        self.ips_path: str | None = None
+        self.pos_path: str | None = None
+        self.general_core = General_Core()
 
         lay = QVBoxLayout(self)
         lay.addStretch(1)
 
         card, cl = make_card(
-            "Configuración de Direccionamiento IP",
-            "Selecciona el archivo CSV de IPs y luego cárgalo/valídalo."
+            "Configuración de Posiciones",
+            "Selecciona el archivo CSV con coordenadas (x, y) para posicionar los dispositivos."
         )
 
-        # fila: botón buscar + input ruta
         row = QHBoxLayout()
-        self.btn_buscar = QPushButton("Seleccionar ips.csv")
+        self.btn_buscar = QPushButton("Seleccionar pos.csv")
         self.btn_buscar.setObjectName("Blue")
 
         self.input_path = QLineEdit()
         self.input_path.setObjectName("PathInput")
-        self.input_path.setPlaceholderText("Selecciona ips.csv ...")
+        self.input_path.setPlaceholderText("Selecciona pos.csv ...")
         self.input_path.setReadOnly(True)
 
         row.addWidget(self.btn_buscar)
         row.addWidget(self.input_path, 1)
         cl.addLayout(row)
 
-        # botón cargar/validar
-        self.btn_cargar = QPushButton("Cargar y Validar IPs")
-        self.btn_cargar.setObjectName("Green")
-        self.btn_cargar.setEnabled(False)
-        cl.addWidget(self.btn_cargar)
+        self.btn_aplicar = QPushButton("Aplicar Posiciones")
+        self.btn_aplicar.setObjectName("Green")
+        self.btn_aplicar.setEnabled(False)
+        cl.addWidget(self.btn_aplicar)
 
         self.lbl_estado = QLabel("Aún no se ha seleccionado un archivo.")
         self.lbl_estado.setObjectName("Hint")
@@ -46,29 +46,30 @@ class IpsPage(QWidget):
         lay.addWidget(card, alignment=Qt.AlignHCenter)
         lay.addStretch(1)
 
-        # señales
-        self.btn_buscar.clicked.connect(self._on_buscar_ips)
-        self.btn_cargar.clicked.connect(self._on_cargar)
+        self.btn_buscar.clicked.connect(self._on_buscar_pos)
+        self.btn_aplicar.clicked.connect(self._on_aplicar)
 
-    def _on_buscar_ips(self):
+    def _on_buscar_pos(self):
         path, _ = QFileDialog.getOpenFileName(
             self,
-            "Seleccionar ips.csv",
+            "Seleccionar pos.csv",
             "",
             "CSV (*.csv);;Todos los archivos (*.*)"
         )
         if not path:
             return
 
-        self.ips_path = path
+        self.general_core.asignar_posiciones(path, bandera=True)
+        self.pos_path = path
+        ##
         self.input_path.setText(path)
-        self.btn_cargar.setEnabled(True)
-        self.lbl_estado.setText("Archivo seleccionado. Listo para cargar.")
-        self.console.write(f"> Archivo de IPs seleccionado: {path}")
+        self.btn_aplicar.setEnabled(True)
+        self.lbl_estado.setText("Archivo seleccionado. Listo para aplicar.")
+        self.console.write(f"> Archivo de posiciones seleccionado: {path}")
 
-    def _on_cargar(self):
-        # Por ahora solo demo (luego conectamos backend aquí)
-        if not self.ips_path:
+    def _on_aplicar(self):
+        if not self.pos_path:
             return
-        self.console.write("> Cargando y validando IPs... (pendiente backend)")
+        # demo por ahora
+        self.console.write("> Aplicando posiciones... (pendiente backend)")
         self.console.write("> Respuesta: ok (demo)")

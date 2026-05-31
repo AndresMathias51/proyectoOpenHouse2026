@@ -61,12 +61,12 @@ class General_Core:
             self.grafo_general.add_all_edges(edges)
     def put_ips_devices(self):
         self.cal_redes.read_ips()
-    def asignar_posiciones(self, bandera=False):
+    def asignar_posiciones(self, ruta: str|None = None, bandera=False):
         if not bandera:
             self.grafo_general.asignar_posiciones()
         else:
             operator = O_reader(self.ruta)
-            operator.read_pos(self.dic_device_objeto)
+            operator.read_pos(self.dic_device_objeto, ruta)
 
     def send_devices_attributes_xml(self):
         
