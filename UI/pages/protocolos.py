@@ -1,11 +1,12 @@
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QPushButton, QHBoxLayout
 from UI.widgets.card import make_card
+from app import General_Core
 
 class ProtocolosPage(QWidget):
-    def __init__(self, console, parent=None):
+    def __init__(self, console, calculadora, parent=None):
         super().__init__(parent)
         self.console = console
-
+        self.calculadora: General_Core = calculadora
         lay = QVBoxLayout(self)
         lay.addStretch(1)
 

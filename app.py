@@ -32,9 +32,9 @@ class General_Core:
         ## PARA XML - protocolo
         self.dic_router_protocolo = {}
 
-    def read_devices(self):
+    def read_devices(self,path):
         operator = O_reader(self.ruta)
-        dic_device_type, dic_device_objeto, dic_conexiones = operator.get_core()
+        dic_device_type, dic_device_objeto, dic_conexiones = operator.get_core(path)
 
         self.dic_device_type.clear()
         self.dic_device_type.update(dic_device_type)
@@ -59,15 +59,33 @@ class General_Core:
         if self.dic_edges:
             edges = self.dic_edges.items()
             self.grafo_general.add_all_edges(edges)
-    def put_ips_devices(self):
-        self.cal_redes.read_ips()
-    def asignar_posiciones(self, ruta: str|None = None, bandera=False):
+    def put_ips_devices(self, path: str|None = None):
+        self.cal_redes.read_ips(path)
+    def asignar_posiciones(self, path: str|None = None, bandera=False):
         if not bandera:
             self.grafo_general.asignar_posiciones()
         else:
             operator = O_reader(self.ruta)
-            operator.read_pos(self.dic_device_objeto, ruta)
+            operator.read_pos(self.dic_device_objeto, path)
+    def operaciones_generales(self):
+        self.write_links_graph()
+        self.send_devices_graph()
+        self.send_links_graph()
+        self.calcular_ramas()
 
+    
+    def calcular_ramas(self):
+        if self.lista_routers:
+            return self.cal_redes.calcular_router_ramas(self.lista_routers, self.grafo_general.grafo)
+        else: 
+            print("No se pudo realizar inter-vlans; no existe ROUTERS en la topologia")
+            return None
+
+
+    def aplicar_protocolos(self, dic):
+        self.dic_router_protocolo = self.cal_redes.calcular_protocolos(dic, self.grafo_general.grafo)
+        # pprint.pprint(self.dic_router_protocolo)
+        
     def send_devices_attributes_xml(self):
         
         dic_all_atributes = {
@@ -98,26 +116,14 @@ class General_Core:
             self.generador_topologia = Gen_xml(dic_all_atributes,self.dic_router_protocolo,self.ruta)
         self.generador_topologia.generar()
         return dic_all_atributes
-
-    def calcular_ramas(self):
-        if self.lista_routers:
-            return self.cal_redes.calcular_router_ramas(self.lista_routers, self.grafo_general.grafo)
-        else: 
-            print("No se pudo realizar inter-vlans; no existe ROUTERS en la topologia")
-            return None
-
-
-    def aplicar_protocolos(self, dic):
-        self.dic_router_protocolo = self.cal_redes.calcular_protocolos(dic, self.grafo_general.grafo)
-        # pprint.pprint(self.dic_router_protocolo)
-
-inicio = time.time()
+##
+"""inicio = time.time()
 calA = General_Core()
 calA.read_devices()
 calA.write_links_graph()
 calA.send_devices_graph()
 calA.send_links_graph()
-grafo_g = calA.grafo_general
+grafo_g = calA.grafo_general"""###
 """print("NODES")
 for i in grafo_g.grafo.nodes(data=True):
     print(i)
@@ -134,7 +140,7 @@ for i in grafo_g.grafo.edges(data=True):
     print(i)"""
 
 ##calA.asignar_posiciones()
-
+"""
 
 print("####################")
 calA.put_ips_devices()
@@ -147,9 +153,9 @@ protocolos = {
 calA.aplicar_protocolos(protocolos)
 b = calA.send_devices_attributes_xml()
 
-pprint.pprint(b)
+pprint.pprint(b)"""
 
-
+####
 """calA.read_devices()
 calA.send_devices()
 calA.validar_conexiones() 

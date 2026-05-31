@@ -2,13 +2,15 @@ from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QWidget, QVBoxLayout, QLabel, QPushButton, QHBoxLayout, QLineEdit, QFileDialog
 )
+from app import General_Core
 
 from UI.widgets.card import make_card
 
 class ConexionesPage(QWidget):
-    def __init__(self, console, parent=None):
+    def __init__(self, console,  calculadora, parent=None):
         super().__init__(parent)
         self.console = console
+        self.calculadora: General_Core = calculadora
         self.csv_path: str | None = None
 
         lay = QVBoxLayout(self)
@@ -61,6 +63,9 @@ class ConexionesPage(QWidget):
             return
 
         self.csv_path = path
+        ##
+        self.calculadora.read_devices(path)
+        ##
         self.input_path.setText(path)
         self.btn_iniciar.setEnabled(True)
         self.lbl_estado.setText("Archivo cargado. Listo para iniciar.")

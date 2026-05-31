@@ -2,15 +2,17 @@ from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QWidget, QVBoxLayout, QLabel, QPushButton, QHBoxLayout, QLineEdit, QFileDialog
 )
+from app import General_Core
 
 from UI.widgets.card import make_card
 
 class IpsPage(QWidget):
-    def __init__(self, console, parent=None):
+    def __init__(self, console, calculadora, parent=None):
         super().__init__(parent)
         self.console = console
-        self.ips_path: str | None = None
+        self.calculadora: General_Core = calculadora
 
+        self.ips_path: str | None = None
         lay = QVBoxLayout(self)
         lay.addStretch(1)
 
@@ -61,6 +63,9 @@ class IpsPage(QWidget):
             return
 
         self.ips_path = path
+        ##
+        self.calculadora.put_ips_devices(path)
+        ##
         self.input_path.setText(path)
         self.btn_cargar.setEnabled(True)
         self.lbl_estado.setText("Archivo seleccionado. Listo para cargar.")

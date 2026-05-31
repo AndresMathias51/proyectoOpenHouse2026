@@ -7,11 +7,11 @@ from app import General_Core
 from UI.widgets.card import make_card
 
 class PosicionesPage(QWidget):
-    def __init__(self, console, parent=None):
+    def __init__(self, console, calculadora, parent=None):
         super().__init__(parent)
         self.console = console
         self.pos_path: str | None = None
-        self.general_core = General_Core()
+        self.calculadora: General_Core = calculadora
 
         lay = QVBoxLayout(self)
         lay.addStretch(1)
@@ -58,8 +58,8 @@ class PosicionesPage(QWidget):
         )
         if not path:
             return
-
-        self.general_core.asignar_posiciones(path, bandera=True)
+        ##
+        self.calculadora.asignar_posiciones(path, bandera=True)
         self.pos_path = path
         ##
         self.input_path.setText(path)

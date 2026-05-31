@@ -28,12 +28,14 @@ class Operator_reader:
             'ss': {},
             'sd': {}
         }
-    def get_core(self):
-        self.read_csv()
+    def get_core(self, path: str|None = None):
+        self.read_csv(path)
         return self.dic_device_type,self.dic_device_objeto, self.dic_conexiones
 
-    def read_csv(self):
-        with open(f"{self.ruta}/data/conexiones.csv", mode='r', newline='', encoding='utf-8') as conexiones:
+    def read_csv(self, path: str|None = None):
+        if path is None:
+            path = f"{self.ruta}/data/conexiones.csv"
+        with open(path, mode='r', newline='', encoding='utf-8') as conexiones:
             reader = csv.reader(conexiones)
             
             for num_line, line in enumerate(reader, start=1):
@@ -92,8 +94,10 @@ class Operator_reader:
         else:
             print("Dispositivo no reconocido")
 
-    def read_pos(self, dic_device_objeto, ruta):
-        with open(f"{ruta}", mode='r', newline='', encoding='utf-8') as pos:
+    def read_pos(self, dic_device_objeto, path: str|None = None):
+        if path is None:
+            path = f"{self.ruta}/data/posiciones.csv"
+        with open(path, mode='r', newline='', encoding='utf-8') as pos:
             reader = csv.reader(pos)
             
             for num_line, line in enumerate(reader, start=1):
@@ -159,8 +163,10 @@ class Operador_nets:
         self.dic_device_objeto = dic_device_objeto
         self.dic_objeto_net = dic_objeto_net
 
-    def read_ips(self):
-        with open(f"{self.ruta}/data/ips.csv", mode='r', newline='', encoding='utf-8') as ips:
+    def read_ips(self, path: str|None = None):
+        if path is None:
+            path = f"{self.ruta}/data/ips.csv"
+        with open(path, mode='r', newline='', encoding='utf-8') as ips:
             reader = csv.reader(ips)
             
             for num_line, line in enumerate(reader, start=1):
