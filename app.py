@@ -69,11 +69,6 @@ class General_Core:
             operator = O_reader(self.ruta)
             operator.read_pos(self.dic_device_objeto, path)
             
-    def operaciones_generales(self):
-        self.write_links_graph()
-        self.send_devices_graph()
-        self.send_links_graph()
-        self.calcular_ramas()
 
     
     def calcular_ramas(self):
@@ -85,6 +80,7 @@ class General_Core:
 
 
     def aplicar_protocolos(self):
+        self.calcular_ramas()
         pprint.pprint(self.dic_protocolo_aux)
         self.dic_router_protocolo = self.cal_redes.calcular_protocolos(self.dic_protocolo_aux, self.grafo_general.grafo)
         # pprint.pprint(self.dic_router_protocolo)
