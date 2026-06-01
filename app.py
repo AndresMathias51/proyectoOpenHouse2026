@@ -68,6 +68,7 @@ class General_Core:
         else:
             operator = O_reader(self.ruta)
             operator.read_pos(self.dic_device_objeto, path)
+            
     def operaciones_generales(self):
         self.write_links_graph()
         self.send_devices_graph()
@@ -89,7 +90,6 @@ class General_Core:
         # pprint.pprint(self.dic_router_protocolo)
         
     def send_devices_attributes_xml(self):
-        self.operaciones_generales()
         self.aplicar_protocolos()
         dic_all_atributes = {
             "pds": [

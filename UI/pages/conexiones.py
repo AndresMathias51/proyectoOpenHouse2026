@@ -65,6 +65,9 @@ class ConexionesPage(QWidget):
         self.csv_path = path
         ##
         self.calculadora.read_devices(path)
+        self.calculadora.write_links_graph()
+        self.calculadora.send_devices_graph()
+        self.calculadora.send_links_graph()
         ##
         self.input_path.setText(path)
         self.btn_iniciar.setEnabled(True)

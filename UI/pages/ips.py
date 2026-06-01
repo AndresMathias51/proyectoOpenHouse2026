@@ -65,6 +65,7 @@ class IpsPage(QWidget):
         self.ips_path = path
         ##
         self.calculadora.put_ips_devices(path)
+        
         ##
         self.input_path.setText(path)
         self.btn_cargar.setEnabled(True)
