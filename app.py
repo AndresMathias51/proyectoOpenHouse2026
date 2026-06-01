@@ -30,6 +30,7 @@ class General_Core:
         self.cal_redes = O_nets(self.ruta, self.dic_device_objeto, self.dic_objeto_net)
         self.generador_topologia: Gen_xml|None = None
         ## PARA XML - protocolo
+        self.dic_protocolo_aux = {}
         self.dic_router_protocolo = {}
 
     def read_devices(self,path):
@@ -82,12 +83,14 @@ class General_Core:
             return None
 
 
-    def aplicar_protocolos(self, dic):
-        self.dic_router_protocolo = self.cal_redes.calcular_protocolos(dic, self.grafo_general.grafo)
+    def aplicar_protocolos(self):
+        pprint.pprint(self.dic_protocolo_aux)
+        self.dic_router_protocolo = self.cal_redes.calcular_protocolos(self.dic_protocolo_aux, self.grafo_general.grafo)
         # pprint.pprint(self.dic_router_protocolo)
         
     def send_devices_attributes_xml(self):
-        
+        self.operaciones_generales()
+        self.aplicar_protocolos()
         dic_all_atributes = {
             "pds": [
                 {"nombre": "PD1", "x": 0, "y": 0},

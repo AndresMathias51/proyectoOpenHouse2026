@@ -5,10 +5,11 @@ from UI.widgets.card import make_card
 from app import General_Core
 
 class VerRedPage(QWidget):
-    def __init__(self, console,calculadora, parent=None):
+    def __init__(self, console, calculadora, parent=None):
         super().__init__(parent)
         self.console = console
         self.calculadora: General_Core = calculadora
+
         lay = QVBoxLayout(self)
         lay.addStretch(1)
 
@@ -19,18 +20,31 @@ class VerRedPage(QWidget):
 
         canvas = QFrame()
         canvas.setMinimumHeight(220)
-        canvas.setStyleSheet("background:#000; border-radius:12px; border:1px solid rgba(148,163,184,0.18);")
+        canvas.setStyleSheet(
+            "background:#000; border-radius:12px; border:1px solid rgba(148,163,184,0.18);"
+        )
         c_l = QVBoxLayout(canvas)
+
         msg = QLabel("[Lienzo reservado para render de red]")
         msg.setAlignment(Qt.AlignCenter)
         msg.setStyleSheet("color:#64748b;")
         c_l.addWidget(msg)
         cl.addWidget(canvas)
 
-        btn = QPushButton("CONSTRUIR ARCHIVO PKT FINAL (demo)")
-        btn.setObjectName("Green")
-        btn.clicked.connect(lambda: self.console.write("> (demo) construir PKT final"))
-        cl.addWidget(btn)
+        self.btn_build = QPushButton("CONSTRUIR ARCHIVO PKT FINAL (demo)")
+        self.btn_build.setObjectName("Green")
+        self.btn_build.clicked.connect(self.on_construir_pkt)
+        cl.addWidget(self.btn_build)
 
         lay.addWidget(card, alignment=Qt.AlignHCenter)
         lay.addStretch(1)
+
+    def on_construir_pkt(self):
+        # Por ahora hace lo mismo que el lambda
+        self.console.write("> (demo) construir PKT final")
+        self.calculadora.send_devices_attributes_xml()
+        # Aquí después le agregas más pasos, por ejemplo:
+        # - validar que ya cargaste conexiones/ips/posiciones
+        # - aplicar protocolos
+        # - llamar self.calculadora.send_devices_attributes_xml()
+        # - actualizar UI/estado
