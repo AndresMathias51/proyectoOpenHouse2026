@@ -2,7 +2,6 @@
 segun esta imagen, quiero que generes una lista en formato csv, con formato: <nombre dispositivo>,<pos x>, <pos y> esto es para cisco packet tracer, asi que toma en cuenta eso para asignar las posiciones de modo que no se sobrepongan, al final las posiciones deben formar la misma que de la imagen
 
 
-
 > PARA ips.csv(subir imagen de topologia) (solo formato por tablas):
 extrae las ips de esta imagen y lo indiques en un csv, formato:
 - (nombre_device,ip,msk).

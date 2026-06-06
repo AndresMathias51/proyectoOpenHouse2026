@@ -1,6 +1,5 @@
 import zlib
 import struct
-import os
 
 
 def xor_data(data: bytes, key: int) -> bytes:

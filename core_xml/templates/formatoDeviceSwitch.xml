@@ -555,7 +555,7 @@
       <DESKTOP_APPS/>
      </USER_APPS>
      <SAVE_REF_ID>{refId}</SAVE_REF_ID>
-     <SYS_NAME>{nombre} {ip}</SYS_NAME>
+     <SYS_NAME>{nombre}</SYS_NAME>
      <RUNNINGCONFIG>
       <LINE>!</LINE>
       <LINE>version 12.2</LINE>
@@ -563,7 +563,7 @@
       <LINE>no service timestamps debug datetime msec</LINE>
       <LINE>no service password-encryption</LINE>
       <LINE>!</LINE>
-      <LINE>hostname {nombre} {ip}</LINE>
+      <LINE>hostname {nombre}</LINE>
       <LINE>!</LINE>
       <LINE>!</LINE>
       <LINE>!</LINE>
@@ -600,7 +600,7 @@
       <LINE>no service timestamps debug datetime msec</LINE>
       <LINE>no service password-encryption</LINE>
       <LINE>!</LINE>
-      <LINE>hostname {nombre} {ip}</LINE>
+      <LINE>hostname {nombre}</LINE>
       <LINE>!</LINE>
       <LINE>!</LINE>
       <LINE>!</LINE>
@@ -705,7 +705,7 @@
              <LINE>no service timestamps debug datetime msec</LINE>
              <LINE>no service password-encryption</LINE>
              <LINE>!</LINE>
-             <LINE>hostname {nombre} {ip}</LINE>
+             <LINE>hostname {nombre}</LINE>
              <LINE>!</LINE>
              <LINE>!</LINE>
              <LINE>!</LINE>

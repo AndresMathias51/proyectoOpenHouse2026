@@ -400,7 +400,7 @@ class GeneradorTopologia:
         # =====================
         # RIP
         # =====================
-        if tipo in ["rip", "ripv2"]:
+        if tipo == "ripv2":
             texto += "      <LINE>router rip</LINE>\n"
             if tipo == "ripv2":
                 texto += "      <LINE> version 2</LINE>\n"
