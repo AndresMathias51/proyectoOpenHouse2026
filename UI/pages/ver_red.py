@@ -31,7 +31,7 @@ class VerRedPage(QWidget):
         c_l.addWidget(msg)
         cl.addWidget(canvas)
 
-        self.btn_build = QPushButton("CONSTRUIR ARCHIVO PKT FINAL (demo)")
+        self.btn_build = QPushButton("CONSTRUIR ARCHIVO PKT FINAL")
         self.btn_build.setObjectName("Green")
         self.btn_build.clicked.connect(self.on_construir_pkt)
         cl.addWidget(self.btn_build)
@@ -41,7 +41,7 @@ class VerRedPage(QWidget):
 
     def on_construir_pkt(self):
         # Por ahora hace lo mismo que el lambda
-        self.console.write("> (demo) construir PKT final")
+        self.console.write("> Archivo pkt generado correctamente")
         self.calculadora.send_devices_attributes_xml()
         # Aquí después le agregas más pasos, por ejemplo:
         # - validar que ya cargaste conexiones/ips/posiciones

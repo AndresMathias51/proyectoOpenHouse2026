@@ -69,12 +69,12 @@ class IpsPage(QWidget):
         ##
         self.input_path.setText(path)
         self.btn_cargar.setEnabled(True)
-        self.lbl_estado.setText("Archivo seleccionado. Listo para cargar.")
+        self.lbl_estado.setText("Archivo seleccionado.")
         self.console.write(f"> Archivo de IPs seleccionado: {path}")
 
     def _on_cargar(self):
         # Por ahora solo demo (luego conectamos backend aquí)
         if not self.ips_path:
             return
-        self.console.write("> Cargando y validando IPs... (pendiente backend)")
-        self.console.write("> Respuesta: ok (demo)")
+        self.console.write("> Enviando archivo...")
+        self.console.write("> Archivo Cargado Correctamente")

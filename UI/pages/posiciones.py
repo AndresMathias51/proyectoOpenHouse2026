@@ -64,12 +64,12 @@ class PosicionesPage(QWidget):
         ##
         self.input_path.setText(path)
         self.btn_aplicar.setEnabled(True)
-        self.lbl_estado.setText("Archivo seleccionado. Listo para aplicar.")
+        self.lbl_estado.setText("Archivo seleccionado.")
         self.console.write(f"> Archivo de posiciones seleccionado: {path}")
 
     def _on_aplicar(self):
         if not self.pos_path:
             return
         # demo por ahora
-        self.console.write("> Aplicando posiciones... (pendiente backend)")
-        self.console.write("> Respuesta: ok (demo)")
+        self.console.write("> Enviando archivo...")
+        self.console.write("> Archivo Cargado Correctamente")

@@ -5,7 +5,7 @@ from core_xml.generadores.generarPartialDuuid import generar_partial_duid
 from core_xml.generadores.generarRefId import generar_save_ref_id
 from core_xml.generadores.generarUuid import generar_uuid
 from core_xml.generadores.reemplazarMacSwitch import reemplazar_macs_switch
-from core_xml.generadores.xml2pkt import xml_a_pkt
+from core_xml.generadores.xmlApkt import encriptar
 
 def safe(val):
     return "" if val is None else val
@@ -531,7 +531,7 @@ class GeneradorTopologia:
         with open(f"{self.ruta}/topologia.xml", "w") as f:
             f.write(xml)
         print("XML generado correctamente")
-        xml_a_pkt(f"{self.ruta}/topologia.xml", f"{self.ruta}/topologia.pkt")
+        encriptar(f"{self.ruta}/topologia.xml", f"{self.ruta}/topologia.pkt")
         return "topologia generada"
 
 # datos = {

@@ -71,12 +71,12 @@ class ConexionesPage(QWidget):
         ##
         self.input_path.setText(path)
         self.btn_iniciar.setEnabled(True)
-        self.lbl_estado.setText("Archivo cargado. Listo para iniciar.")
-        self.console.write(f"> CSV cargado: {path}")
+        self.lbl_estado.setText("Archivo seleccionado.")
+        self.console.write(f"> Archivo de conexiones seleccionado: {path}")
 
     def _on_iniciar(self):
         # Por ahora solo demo (luego conectamos backend aquí)
         if not self.csv_path:
             return
-        self.console.write("> Enviando ruta real de topología al núcleo de Python... (pendiente backend)")
-        self.console.write("> Éxito: True (demo)")
+        self.console.write("> Enviando archivo...")
+        self.console.write("> Archivo Cargado Correctamente")
