@@ -5,16 +5,8 @@ import argparse
 import ctypes
 import ctypes.util
 
-# ---------------------------------------------------------------------------
-# Constantes — clave e IV hardcodeados en Packet Tracer (de pka2xml.hpp)
-# ---------------------------------------------------------------------------
 KEY = bytes([137] * 16)   # 0x89 × 16
 IV  = bytes([16]  * 16)   # 0x10 × 16
-
-
-# ---------------------------------------------------------------------------
-# Backend Twofish via libavutil (FFmpeg) — sin dependencias pip
-# ---------------------------------------------------------------------------
 
 def _load_twofish():
     """Carga libavutil y configura los prototipos de las funciones Twofish."""
@@ -67,10 +59,6 @@ def _twofish_ecb_encrypt(key: bytes, block: bytes) -> bytes:
     return out.raw
 
 
-# ---------------------------------------------------------------------------
-# Primitivas criptográficas: CMAC y CTR (necesarias para EAX)
-# ---------------------------------------------------------------------------
-
 def _xor(a: bytes, b: bytes) -> bytes:
     return bytes(x ^ y for x, y in zip(a, b))
 
@@ -121,11 +109,6 @@ def _ctr(key: bytes, nonce_block: bytes, data: bytes) -> bytes:
         result.extend(_xor(ks, data[i:i + BLOCK]))
     return bytes(result)
 
-
-# ---------------------------------------------------------------------------
-# Twofish-EAX  (cifrado autenticado, compatible con Crypto++ EAX<Twofish>)
-# ---------------------------------------------------------------------------
-
 def _twofish_eax_encrypt(data: bytes, key: bytes, iv: bytes) -> bytes:
     """
     Cifra `data` con Twofish en modo EAX.
@@ -139,11 +122,6 @@ def _twofish_eax_encrypt(data: bytes, key: bytes, iv: bytes) -> bytes:
     H          = _cmac(key, bytes(BLOCK - 1) + b'\x01')         # sin header
     tag        = _xor(_xor(N, H), C)[:BLOCK]
     return ciphertext + tag
-
-
-# ---------------------------------------------------------------------------
-# Las 4 etapas del pipeline PKA/PKT  (pka2xml::encrypt)
-# ---------------------------------------------------------------------------
 
 def _compress_with_header(data: bytes) -> bytes:
     """Etapa 1: zlib + cabecera de 4 bytes con el tamaño original."""
@@ -164,11 +142,6 @@ def _final_obfuscation(data: bytes) -> bytes:
         out[n - 1 - i] = b ^ ((n - i * n) & 0xFF)
     return bytes(out)
 
-
-# ---------------------------------------------------------------------------
-# Función principal de encriptación
-# ---------------------------------------------------------------------------
-
 def encriptar(ruta_origen: str, ruta_salida: str) -> None:
     """
     Convierte un archivo XML al formato binario PKT/PKA de Packet Tracer.
@@ -187,11 +160,6 @@ def encriptar(ruta_origen: str, ruta_salida: str) -> None:
 
     with open(ruta_salida, 'wb') as f:
         f.write(pkt)
-
-
-# ---------------------------------------------------------------------------
-# CLI
-# ---------------------------------------------------------------------------
 
 def main():
     parser = argparse.ArgumentParser(
